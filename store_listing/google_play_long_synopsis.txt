@@ -1,0 +1,31 @@
+See how words work in context with Grammer Study, a grammar reference and practice app for students, teachers, and independent learners.
+
+Explore grammar categories, tagged sentence structures, plain examples, and three interactive word games. Use the app for a quick lookup, a focused practice session, or classroom support.
+
+FIND GRAMMAR IN REAL SENTENCES
+
+Browse words and phrases by grammar category and read available word-type definitions. Search within a category, select a value, and open sentences that show it in use. Select any result to switch between the natural sentence and its tagged grammatical structure.
+
+Search the complete Structure collection when you want annotated patterns, or use the Sentence collection for clean, readable examples. Results update as you type and prioritize matches that begin with your search.
+
+PRACTICE WITH THREE GAMES
+
+CROSSWORD
+Solve generated crosswords built from grammar vocabulary. Use direction, length, word-type clues, and sentence hints. Enter one letter at a time, clear a cell, or reveal a word when you need help.
+
+SLIDE
+Drag vertical letter columns to align a hidden word across the target row. Submit your arrangement to lock correct letters in place. A word-type definition and sentence hint provide extra context.
+
+DRAG
+Rebuild a tagged sentence by dragging missing words into their matching positions. Color feedback confirms correct matches and lets you retry an incorrect choice.
+
+STUDY YOUR WAY
+
+- Search grammar values, tagged structures, and plain sentences
+- Compare natural examples with grammatical annotations
+- Choose System, Light, or Dark theme
+- Continue from your last selected grammar category
+- Use responsive layouts on phones, tablets, and larger screens
+- Restore bundled study data with built-in database diagnostics
+
+Grammar reference content and games are bundled with the app, so they work without a continuous internet connection. Network access is used only when you choose to send the developer a question or view app submissions. The app includes no advertising or analytics packages.
