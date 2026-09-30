@@ -1,5 +1,5 @@
 name: grammarstudy
-description: "A new Flutter project."
+description: "Grammar Study is an offline grammar reference and practice app with categorized vocabulary, tagged sentence structures, plain examples, and three interactive games."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.41+43
+version: 1.0.44+46
 
 environment:
   sdk: ^3.12.2
@@ -95,10 +95,10 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
 msix_config:
-  display_name: Grammer Study
+  display_name: Grammar Study
   publisher_display_name: Stefan Ronnkvist
   identity_name: com.stefanronnkvist.paid.grammarstudy
-  msix_version: 1.0.41.43
+  msix_version: 1.0.44.46
   logo_path: windows/runner/resources/app_icon.ico
   output_name: grammarstudy
   capabilities: internetClient

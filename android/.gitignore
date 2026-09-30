@@ -1,11 +1,5 @@
-gradle-wrapper.jar
-/.gradle
-/captures/
-/gradlew
-/gradlew.bat
-/local.properties
-GeneratedPluginRegistrant.java
-.cxx/
+# The entire app is tracked, including the Gradle wrapper, build output
+# and generated plugin registrants. Only credentials are excluded.
 
 # Remember to never publicly share your keystore.
 # See https://flutter.dev/to/reference-keystore
