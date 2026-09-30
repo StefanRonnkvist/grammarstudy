@@ -1,20 +1,20 @@
-# Grammer Study
+# Grammar Study
 
-Grammer Study is a Flutter grammar reference and practice app. It combines categorized vocabulary, definitions, tagged sentence structures, plain examples, and three interactive games. Study content ships with the app, so reference and game features work without a continuous internet connection.
+Grammar Study is a Flutter grammar reference and practice app. It combines categorized vocabulary, definitions, tagged sentence structures, plain examples, and three interactive games. Study content ships with the app, so reference and game features work without a continuous internet connection.
 
 ## Features
 
-- **Games tab** - Three practice modes:
+- **Games tab** - Three practice modes (opens on Drag):
   - **Crossword:** solve generated puzzles with direction, length, word-type clues, sentence hints, immediate letter feedback, and optional word reveals.
   - **Slide:** align draggable letter columns, submit the arrangement, and lock correctly placed letters in a hidden word.
   - **Drag:** rebuild tagged sentences by moving removed words to their matching positions.
 - **Grammar tab** - Browse searchable values by category, read available definitions, and open matching sentences. Each result toggles between plain and tagged text.
 - **Structure tab** - Search and browse tagged sentence structures with live filtering.
 - **Sentence tab** - Search and browse plain sentence examples with live filtering.
-- **Help tab** - Read guidance for the main tabs, game controls, themes, and database recovery.
-- **Information tab** - Send a question or correction through Contact Us and load submissions associated with this app.
+- **Help tab** - Read guidance for the six top tabs, game controls, themes, database recovery, and offline/privacy behaviour.
+- **Information tab** - Send a question or correction through Contact Us and review this app's submissions.
 - **Theme support** - System, light, and dark modes saved locally.
-- **Assets DB diagnostics** - Inspect loaded data counts and restore bundled database content.
+- **DB diagnostics** - Inspect loaded data counts and restore bundled database content.
 - **Local study data** - Native builds restore from a bundled Hive database when possible; every platform can rebuild the same content from bundled exports.
 - **Responsive layout** - Game layouts adapt for phones, tablets, and larger screens.
 
@@ -28,7 +28,7 @@ Flutter runner projects are configured for Android, iOS, web, Windows, Linux, an
 
 ## Version
 
-`1.0.38+40`
+`1.0.43+45`
 
 ## Google Play Listing
 
@@ -41,10 +41,11 @@ Store listing copy is maintained in:
   Explore grammar in real sentences and practice with three interactive games.
 
 - Long synopsis highlights:
-  - Searchable grammar categories with definitions and matching sentence examples.
-  - Tagged Structure and plain Sentence reference views.
+  - Grammar categories with definitions, searchable values, and matching sentences.
+  - Structure tab for tagged sentences and Sentence tab for plain examples.
   - Crossword, Slide, and Drag practice modes with contextual hints.
   - Offline study content, theme options, responsive layouts, and database recovery tools.
+  - Contact Us and Submissions for questions and app-specific feedback.
 
 ## Build
 
@@ -64,6 +65,63 @@ On Windows, `scripts/build-release.ps1` builds a versioned APK, App Bundle, or M
 .\scripts\build-release.ps1 -Target appbundle
 .\scripts\build-release.ps1 -Target msix
 ```
+
+## Project Structure
+
+Code is organised into four layers so that features stay independent.
+
+```
+lib/
+  main.dart                 Entry point and startup gate
+  app/
+    bootstrap/              Database startup and failure recovery
+    home/                   App bar, top tabs, and tab routing
+    theme/                  Light and dark theme construction
+  core/                     Shared, feature-agnostic helpers
+    layout/                 Responsive breakpoints and text measurement
+    search/                 Prefix-ranked filtering and sorting
+    text/                   Normalization and word matching
+    widgets/                Reusable status, search, and dialog views
+  data/                     Study database access and schema
+  features/
+    games/                  crossword | slide | drag, each with domain + presentation
+    grammar/                Category browsing and value-to-sentence dialogs
+    structure/              Tagged sentence reference
+    sentence/               Plain sentence reference
+    help/                   In-app guidance
+    information/            Contact and submissions grouping
+    contact/                Support form, submissions list, and CSV parsing
+```
+
+Each feature splits into `domain/` (pure logic and models, no Flutter
+dependency beyond types) and `presentation/` (widgets). Game rules live in
+`domain/` so they can be tested without a widget tree.
+
+## Tests
+
+Game rules, text normalization, and search behaviour are covered by unit tests
+that run without a widget tree:
+
+```powershell
+flutter test
+```
+
+| Suite | Covers |
+| --- | --- |
+| `test/core/text_and_search_test.dart` | Normalization, word matching, tag stripping, prefix-ranked search |
+| `test/data/study_database_service_test.dart` | Seeding from bundled exports, schema versioning, summary counts |
+| `test/features/games/crossword/` | Placement rules, puzzle generation, cell navigation, widget behaviour |
+| `test/features/games/slide/` | Board generation, alignment evaluation, drag and snap behaviour |
+| `test/features/games/drag/` | Sentence tokenizing, round building, drop matching |
+| `test/features/contact/` | Submissions CSV parsing, package filtering, contact form validation and URL rules |
+| `test/app/home_screen_test.dart` | Tab routing, theme menu, database diagnostics, tab panes |
+
+Widget tests that render data-driven tabs use `test/helpers/test_database.dart`,
+which seeds a temporary Hive database from the bundled exports so tests never
+depend on a previously built one.
+
+When changing a rule in a `domain/` folder, update the matching suite so the
+behaviour stays pinned.
 
 ## Data Workflow
 

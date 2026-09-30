@@ -1,31 +1,36 @@
-See how words work in context with Grammer Study, a grammar reference and practice app for students, teachers, and independent learners.
+See how words work in context with Grammar Study, a grammar reference and practice app for students, teachers, and independent learners.
 
-Explore grammar categories, tagged sentence structures, plain examples, and three interactive word games. Use the app for a quick lookup, a focused practice session, or classroom support.
+Look up a grammar term, read the definition, compare the same sentence plain and annotated, then practise it in one of three games. All study content is bundled, so the app works without a continuous internet connection.
 
 FIND GRAMMAR IN REAL SENTENCES
 
-Browse words and phrases by grammar category and read available word-type definitions. Search within a category, select a value, and open sentences that show it in use. Select any result to switch between the natural sentence and its tagged grammatical structure.
+The Grammar tab groups vocabulary into categories. Pick a category to see its definition and its values, search within it, then select a value to open the sentences that use it. Every result starts as plain text and switches to its tagged grammatical structure when selected.
 
-Search the complete Structure collection when you want annotated patterns, or use the Sentence collection for clean, readable examples. Results update as you type and prioritize matches that begin with your search.
+The Structure tab lists the same sentences with their grammar tags, so you can study annotated patterns. The Sentence tab lists them as clean, readable examples. Both filter and sort as you type, and matches beginning with your search are listed first.
 
 PRACTICE WITH THREE GAMES
 
 CROSSWORD
-Solve generated crosswords built from grammar vocabulary. Use direction, length, word-type clues, and sentence hints. Enter one letter at a time, clear a cell, or reveal a word when you need help.
+Solve generated crosswords built from grammar vocabulary. Clues give the direction, length, and word type. Select a cell and type one letter at a time: correct entries turn green, incorrect ones turn red. Select a clue, or tap the same cell twice, for a sentence hint and the option to reveal that word. Hint summarizes the whole puzzle, Clear Cell removes the selected entry, and New Puzzle starts a fresh grid.
 
 SLIDE
-Drag vertical letter columns to align a hidden word across the target row. Submit your arrangement to lock correct letters in place. A word-type definition and sentence hint provide extra context.
+Drag each vertical letter column until one letter lines up with the horizontal target row, then select Submit. Correct positions lock in place while the remaining columns stay movable. Select the underlined word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.
 
 DRAG
-Rebuild a tagged sentence by dragging missing words into their matching positions. Color feedback confirms correct matches and lets you retry an incorrect choice.
+Rebuild a tagged sentence by dragging each word from the word list into its matching blank. Matching colors confirm a correct placement; an incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.
 
 STUDY YOUR WAY
 
 - Search grammar values, tagged structures, and plain sentences
-- Compare natural examples with grammatical annotations
+- Switch each result between its natural and annotated form
+- Open a word type for its definition without leaving the puzzle
 - Choose System, Light, or Dark theme
-- Continue from your last selected grammar category
-- Use responsive layouts on phones, tablets, and larger screens
-- Restore bundled study data with built-in database diagnostics
+- Resume from the grammar category you used last
+- Work on phones, tablets, and larger screens
+- Check loaded data counts and restore the bundled database
 
-Grammar reference content and games are bundled with the app, so they work without a continuous internet connection. Network access is used only when you choose to send the developer a question or view app submissions. The app includes no advertising or analytics packages.
+SUPPORT AND PRIVACY
+
+Use Contact Us in the Information tab to send a question or correction, and Submissions to review entries for this app. Both need an internet connection; everything else does not. The app includes no advertising and no analytics.
+
+Grammar reference content and games ship with the app, so they work offline. Preferences, study data, and game progress are stored only on your device.

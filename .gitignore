@@ -1,5 +1,8 @@
 # This repository tracks the ENTIRE app, including generated files,
-# local editor/IDE configuration and build output.
+# local editor/IDE configuration and build output. Every local build will
+# therefore produce changes under build/, .dart_tool/, and android/.gradle/,
+# which is expected rather than a sign of a problem.
+#
 # The only exclusions kept are the ones that must never be committed:
 # secrets, credentials and compiled Python bytecode.
 
