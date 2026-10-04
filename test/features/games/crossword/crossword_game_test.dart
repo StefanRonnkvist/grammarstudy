@@ -198,6 +198,68 @@ void main() {
       expect(fieldText(), 'ZZZ');
     });
 
+    testWidgets('grades letters only once the whole clue is filled', (
+      tester,
+    ) async {
+      // A single candidate makes the puzzle deterministic: one Across word
+      // reading "cat", so the expected letters are known.
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: CrosswordGame(
+              candidates: const [CrosswordCandidate(word: 'cat', type: 'Noun')],
+              sentences: const [],
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final cells = find.byWidgetPredicate(
+        (widget) => widget is GestureDetector && widget.child is Container,
+      );
+      await tester.tap(cells.first);
+      await tester.pumpAndSettle();
+
+      final field = find.byType(TextField).last;
+      String fieldText() =>
+          tester.widget<TextField>(field).controller?.text ?? '';
+      expect(fieldText(), '___');
+
+      /// Returns the colour of the rendered letter [letter], if any.
+      Color? colorOf(String letter) {
+        for (final element in find.byType(Text).evaluate()) {
+          final widget = element.widget as Text;
+          if (widget.data == letter && widget.style?.color != null) {
+            return widget.style!.color;
+          }
+        }
+        return null;
+      }
+
+      // A partly entered clue keeps its letters blue, correct or not.
+      await tester.enterText(field, 'CX_');
+      await tester.pumpAndSettle();
+
+      expect(
+        colorOf('C'),
+        Colors.blue.shade800,
+        reason: 'a correct letter is blue until the clue is complete',
+      );
+      expect(
+        colorOf('X'),
+        Colors.blue.shade800,
+        reason: 'a wrong letter is blue until the clue is complete',
+      );
+
+      // Filling the last square grades the whole clue: C is right, X is wrong.
+      await tester.enterText(field, 'CXT');
+      await tester.pumpAndSettle();
+
+      expect(colorOf('C'), Colors.green.shade800);
+      expect(colorOf('X'), Colors.red.shade800);
+    });
+
     testWidgets('asks which clue to answer when a square shares a number', (
       tester,
     ) async {

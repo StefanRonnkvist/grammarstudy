@@ -249,17 +249,36 @@ class _CrosswordGameState extends State<CrosswordGame> {
         continue;
       }
 
-      // A letter the player typed here is correct but still changeable.
-      if (_enteredLettersByCell[key] != null) {
+      // A square that takes its letter from another settled word is locked
+      // even when the player has typed there, because overwriting it would
+      // break the crossing. The correct letter is shown in its place.
+      if (_isFixedBySettledWord(puzzle, word, key)) {
+        locked.add(key);
         continue;
       }
 
-      // A blank square fixed by another settled word cannot be typed over.
-      if (_isFixedBySettledWord(puzzle, word, key)) {
-        locked.add(key);
+      // A letter the player typed into a square of this word alone is correct
+      // but still changeable, so the word can always be corrected.
+      if (_enteredLettersByCell[key] != null) {
+        continue;
       }
     }
     return locked;
+  }
+
+  /// Reports whether every square of [word] already holds a letter.
+  bool _allCellsFilled(CrosswordPuzzle puzzle, CrosswordPlacedWord word) {
+    for (var index = 0; index < word.word.length; index++) {
+      final key = cellKeyFor(
+        word.row + (word.isAcross ? 0 : index),
+        word.col + (word.isAcross ? index : 0),
+      );
+      if (_enteredLettersByCell[key] == null &&
+          !_revealedWordIds.contains(word.id)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /// Reports whether [key] takes its letter from another settled clue.
@@ -508,6 +527,11 @@ class _CrosswordGameState extends State<CrosswordGame> {
     final clueNumbers = buildClueNumbersByCell(puzzle);
     final startNumbers = buildStartNumberByWordId(puzzle, clueNumbers);
     final activeWord = puzzle.wordById(_activeWordId ?? -1);
+
+    // Entered letters are only graded once every square of the clue is filled.
+    final isActiveWordComplete =
+        activeWord != null &&
+        _allCellsFilled(puzzle, activeWord);
     final startNumbersByCellKey = <String, int>{
       for (final word in puzzle.placedWords)
         cellKeyFor(word.row, word.col): startNumbers[word.id] ?? 0,
@@ -548,6 +572,7 @@ class _CrosswordGameState extends State<CrosswordGame> {
                   revealedWordIds: _revealedWordIds,
                   selectedCellKey: _selectedCellKey,
                   activeWordId: _activeWordId,
+                  isActiveWordComplete: isActiveWordComplete,
                   startNumberByWordId: startNumbers,
                   startNumberByCellKey: startNumbersByCellKey,
                   onCellTapped: _selectCell,

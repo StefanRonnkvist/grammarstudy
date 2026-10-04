@@ -18,6 +18,7 @@ class CrosswordGrid extends StatelessWidget {
     required this.revealedWordIds,
     required this.selectedCellKey,
     required this.activeWordId,
+    required this.isActiveWordComplete,
     required this.startNumberByWordId,
     required this.startNumberByCellKey,
     required this.onCellTapped,
@@ -30,6 +31,12 @@ class CrosswordGrid extends StatelessWidget {
   final String? selectedCellKey;
   /// Word whose squares typing currently fills, highlighted on the board.
   final int? activeWordId;
+
+  /// Whether every square of [activeWordId] has a letter.
+  ///
+  /// Entered letters stay blue until the whole clue is filled, then turn green
+  /// or red according to whether they match the puzzle.
+  final bool isActiveWordComplete;
   final Map<int, int> startNumberByWordId;
   final Map<String, int> startNumberByCellKey;
   final ValueChanged<String> onCellTapped;
@@ -52,6 +59,11 @@ class CrosswordGrid extends StatelessWidget {
     final enteredWrongColor = isDark
         ? Colors.red.shade300
         : Colors.red.shade800;
+    // An entered letter is blue while the clue is still being filled in, so
+    // the colour only reports right or wrong once the whole clue is typed.
+    final enteredPendingColor = isDark
+        ? Colors.lightBlueAccent.shade200
+        : Colors.blue.shade800;
 
     return Center(
       child: AspectRatio(
@@ -82,7 +94,17 @@ class CrosswordGrid extends StatelessWidget {
                 ? letter.toUpperCase()
                 : (enteredLetter ?? '');
             final isCorrectEntry =
-                enteredLetter != null && enteredLetter.toLowerCase() == letter;
+                enteredLetter != null &&
+                enteredLetter.toLowerCase() == letter.toLowerCase();
+            final enteredColor =
+                isCorrectEntry ? enteredCorrectColor : enteredWrongColor;
+            final letterColor = isRevealed
+                ? colorScheme.onSurface
+                : enteredLetter == null
+                ? colorScheme.onSurface
+                : isActiveWord && !isActiveWordComplete
+                ? enteredPendingColor
+                : enteredColor;
 
             return GestureDetector(
               onTap: () {
@@ -121,13 +143,7 @@ class CrosswordGrid extends StatelessWidget {
                         displayLetter,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: isRevealed
-                              ? colorScheme.onSurface
-                              : (enteredLetter == null
-                                    ? colorScheme.onSurface
-                                    : (isCorrectEntry
-                                          ? enteredCorrectColor
-                                          : enteredWrongColor)),
+                          color: letterColor,
                         ),
                       ),
                     ),
