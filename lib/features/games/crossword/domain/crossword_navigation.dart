@@ -104,6 +104,73 @@ CrosswordPlacedWord? activeWordForCell(
   return words.isEmpty ? null : words.first;
 }
 
+/// Returns the square the caret should sit on for [sequence].
+///
+/// Blanks the player may type into are preferred; squares locked by a crossing
+/// are skipped, so the caret never lands on a letter that cannot be replaced.
+int nextTypingIndex(
+  List<String?> sequence, {
+  Set<int> lockedIndexes = const <int>{},
+}) {
+  for (var index = 0; index < sequence.length; index++) {
+    if (sequence[index] == null && !lockedIndexes.contains(index)) {
+      return index;
+    }
+  }
+
+  // Everything is filled or the only blanks are locked, so rest on the last
+  // square rather than jumping back to the start.
+  return sequence.isEmpty ? 0 : sequence.length - 1;
+}
+
+/// Builds the letters the clue's squares should show from the entry field.
+///
+/// [fieldCharacters] holds one character per square, with `_` marking a square
+/// the player has not typed. The result has one letter per square, in the same
+/// order, so nothing can shift position.
+///
+/// [lockedIndexes] are the squares whose letter comes from another settled clue:
+/// they always show their own letter and are never taken from the field, which
+/// is what keeps a crossing letter anchored to its square.
+///
+/// The result keeps one entry per square, so a square with no letter is null
+/// rather than being removed and shifting the letters after it.
+List<String?> resolveClueLettersFromField({
+  required List<String?> lockedLetters,
+  required List<String?> shownLetters,
+  required List<String?> existingLetters,
+  required List<String> fieldCharacters,
+}) {
+  final length = lockedLetters.length;
+  final result = List<String?>.filled(length, null);
+
+  for (var index = 0; index < length; index++) {
+    // A crossing letter always shows, whatever the field holds.
+    if (lockedLetters[index] != null) {
+      result[index] = lockedLetters[index];
+      continue;
+    }
+
+    if (index < fieldCharacters.length) {
+      final character = fieldCharacters[index];
+      if (RegExp(r'[a-zA-Z]').hasMatch(character)) {
+        result[index] = character.toUpperCase();
+        continue;
+      }
+
+      // A blank clears the square unless the square already holds a correct
+      // letter, which is shown again.
+      result[index] = shownLetters[index] ?? existingLetters[index];
+      continue;
+    }
+
+    // Past the end of the field, keep a letter that is already in the square.
+    result[index] = shownLetters[index] ?? existingLetters[index];
+  }
+
+  return result;
+}
+
 /// Assigns sequential clue numbers to occupied cells in row-major order.
 Map<String, int> buildClueNumbersByCell(CrosswordPuzzle puzzle) {
   final clueNumbers = <String, int>{};

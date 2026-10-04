@@ -89,20 +89,70 @@ class _CrosswordGameState extends State<CrosswordGame> {
 
   /// Selects a cell and locks typing to the clue that runs through it.
   ///
-  /// Crossing cells keep their current direction when it still runs through
-  /// them, so a word can be typed end to end without the direction flipping
-  /// mid-word. The field is rebuilt for the newly selected clue.
+  /// A square that belongs to both an Across and a Down word shares one clue
+  /// number with both, so the player is asked which one to answer. A square
+  /// that belongs to the clue already being typed keeps that clue, so working
+  /// along a word is never interrupted.
   void _selectCell(String key) {
     final puzzle = _puzzle;
-    final activeWord = puzzle == null
-        ? null
-        : activeWordForCell(puzzle, key, preferredWordId: _activeWordId);
+    if (puzzle == null) {
+      setState(() {
+        _selectedCellKey = key;
+        _activeWordId = null;
+      });
+      _showFieldForActiveWord();
+      return;
+    }
+
+    final cellWordIds = puzzle.wordIdsByCell[key] ?? const <int>{};
+    final continuesCurrentClue = cellWordIds.contains(_activeWordId);
+
+    if (cellWordIds.length > 1 && !continuesCurrentClue) {
+      setState(() {
+        _selectedCellKey = key;
+      });
+      _inputFocusNode.requestFocus();
+      _askWhichClueToAnswer(key);
+      return;
+    }
+
+    final activeWord = activeWordForCell(
+      puzzle,
+      key,
+      preferredWordId: _activeWordId,
+    );
     setState(() {
       _selectedCellKey = key;
       _activeWordId = activeWord?.id;
     });
     _showFieldForActiveWord();
     _inputFocusNode.requestFocus();
+  }
+
+  /// Asks the player which of the clues sharing [key] should be answered.
+  Future<void> _askWhichClueToAnswer(String key) async {
+    final puzzle = _puzzle;
+    if (puzzle == null) {
+      return;
+    }
+
+    await showCellWordPickerDialog(
+      context,
+      puzzle: puzzle,
+      cellWordIds: puzzle.wordIdsByCell[key] ?? const <int>{},
+      startNumberByWordId: buildStartNumberByWordId(
+        puzzle,
+        buildClueNumbersByCell(puzzle),
+      ),
+      onWordSelected: (word) {
+        setState(() {
+          _activeWordId = word.id;
+          _selectedCellKey = key;
+        });
+        _showFieldForActiveWord();
+        _inputFocusNode.requestFocus();
+      },
+    );
   }
 
   /// Rewrites the entry field with the active clue's known letters and blanks.
@@ -135,13 +185,12 @@ class _CrosswordGameState extends State<CrosswordGame> {
     _writeFieldForSequence(_letterSequenceForWord(activeWord));
   }
 
-  /// Builds the letter sequence for [word], prefilled with the squares the
-  /// player cannot type: the squares of a revealed word, and the squares of a
-  /// different word that is already solved, whose letter the player does not
-  /// need to enter again.
+  /// Builds the letter sequence for [word] as the player should see it.
   ///
-  /// Letters typed by the player are deliberately left blank here so typing
-  /// always replaces them; a letter is never repeated no matter what is typed.
+  /// Every letter that is already correct self fills into the sequence, either
+  /// because the player typed it correctly or because it comes from a revealed
+  /// word, so the field always shows the green characters in place. Squares
+  /// that are blank or hold a wrong letter stay open for typing.
   List<String?> _letterSequenceForWord(CrosswordPlacedWord word) {
     final puzzle = _puzzle;
     final letters = List<String?>.filled(word.word.length, null);
@@ -149,84 +198,117 @@ class _CrosswordGameState extends State<CrosswordGame> {
       return letters;
     }
 
-    final lockedCells = _lockedCellsForWord(puzzle, word);
     for (var index = 0; index < word.word.length; index++) {
       final key = cellKeyFor(
         word.row + (word.isAcross ? 0 : index),
         word.col + (word.isAcross ? index : 0),
       );
-      if (lockedCells.contains(key)) {
-        letters[index] = puzzle.letters[key]?.toUpperCase();
+      final expected = puzzle.letters[key];
+      if (expected == null) {
+        continue;
+      }
+
+      final entered = _enteredLettersByCell[key];
+      final isCorrect =
+          entered != null && entered.toLowerCase() == expected.toLowerCase();
+      if (isCorrect ||
+          _revealedWordIds.contains(word.id) ||
+          _isFixedBySettledWord(puzzle, word, key)) {
+        letters[index] = expected.toUpperCase();
       }
     }
 
     return letters;
   }
 
-  /// Returns the squares of [word] that already hold a letter the player does
-  /// not type: every square of a revealed word, plus squares whose letter comes
-  /// from another word that is already solved.
+  /// Returns the squares of [word] whose letter the player cannot type.
+  ///
+  /// A square is fixed when the letter belongs to another clue that is already
+  /// settled, either because that clue was solved by the player or because it
+  /// was revealed. Those letters must not be typed over or the crossing would
+  /// break. Letters typed by the player for this word stay editable so a word
+  /// can always be corrected.
   Set<String> _lockedCellsForWord(
     CrosswordPuzzle puzzle,
     CrosswordPlacedWord word,
   ) {
-    if (_revealedWordIds.contains(word.id)) {
-      return {
-        for (var index = 0; index < word.word.length; index++)
-          cellKeyFor(
-            word.row + (word.isAcross ? 0 : index),
-            word.col + (word.isAcross ? index : 0),
-          ),
-      };
-    }
-
     final locked = <String>{};
     for (var index = 0; index < word.word.length; index++) {
       final key = cellKeyFor(
         word.row + (word.isAcross ? 0 : index),
         word.col + (word.isAcross ? index : 0),
       );
-      final entered = _enteredLettersByCell[key];
-      if (entered == null ||
-          entered.toLowerCase() != puzzle.letters[key]?.toLowerCase()) {
+      final expected = puzzle.letters[key];
+      if (expected == null) {
         continue;
       }
 
-      final otherWordIds =
-          (puzzle.wordIdsByCell[key] ?? const <int>{})..remove(word.id);
-      final isSolvedByAnotherWord = otherWordIds.any((id) {
-        if (id == word.id) {
-          return false;
-        }
-        final other = puzzle.wordById(id);
-        return other != null &&
-            isWordCorrectlyAnswered(
-              other,
-              _enteredLettersByCell,
-              _revealedWordIds,
-            );
-      });
-      if (isSolvedByAnotherWord) {
+      // Every square of this word is fixed when the word was revealed.
+      if (_revealedWordIds.contains(word.id)) {
+        locked.add(key);
+        continue;
+      }
+
+      // A letter the player typed here is correct but still changeable.
+      if (_enteredLettersByCell[key] != null) {
+        continue;
+      }
+
+      // A blank square fixed by another settled word cannot be typed over.
+      if (_isFixedBySettledWord(puzzle, word, key)) {
         locked.add(key);
       }
     }
     return locked;
   }
 
+  /// Reports whether [key] takes its letter from another settled clue.
+  ///
+  /// A revealed or solved crossing word fixes the letter in its squares, so the
+  /// letter shows in the field without the player typing it again.
+  bool _isFixedBySettledWord(
+    CrosswordPuzzle puzzle,
+    CrosswordPlacedWord word,
+    String key,
+  ) {
+    return (puzzle.wordIdsByCell[key] ?? const <int>{}).any((id) {
+      if (id == word.id) {
+        return false;
+      }
+      final other = puzzle.wordById(id);
+      return other != null &&
+          isWordCorrectlyAnswered(
+            other,
+            _enteredLettersByCell,
+            _revealedWordIds,
+          );
+    });
+  }
+
   /// Rebuilds the entry field as the clue's masked word.
   ///
   /// Known letters are shown in place and unknown squares show `_`, so the
   /// field always reads like the clue with the correct characters filled in.
-  /// The caret is parked on the first blank square so the next typed character
-  /// lands in the right position.
-  void _writeFieldForSequence(List<String?> sequence) {
+  /// The caret moves to the next square the player can type into, so typing
+  /// walks along the clue and a visible crossing letter is stepped over rather
+  /// than typed over.
+  void _writeFieldForSequence(
+    List<String?> sequence, {
+    Set<String> lockedCells = const <String>{},
+    List<String> keys = const <String>[],
+  }) {
     final text = sequence.map((letter) => letter ?? '_').join();
-    final firstBlank = sequence.indexWhere((letter) => letter == null);
+    final lockedIndexes = <int>{
+      for (var index = 0; index < keys.length; index++)
+        if (lockedCells.contains(keys[index])) index,
+    };
+    final caret = nextTypingIndex(sequence, lockedIndexes: lockedIndexes);
+
     _isSyncingField = true;
     _inputController.value = TextEditingValue(
       text: text,
       selection: TextSelection.collapsed(
-        offset: firstBlank == -1 ? text.length : firstBlank,
+        offset: caret.clamp(0, text.length),
       ),
     );
     _isSyncingField = false;
@@ -253,39 +335,51 @@ class _CrosswordGameState extends State<CrosswordGame> {
     }
 
     final length = activeWord.word.length;
-    final known = _letterSequenceForWord(activeWord);
 
-    // Known letters hold their position; everything typed fills the rest.
-    final sequence = List<String?>.filled(length, null);
+    // Correct letters are shown in the sequence so the field matches the green
+    // characters on the board, but only the letters the player did not type
+    // here are fixed. A typed letter can still be replaced, which is what keeps
+    // a word from becoming impossible to correct.
+    final shown = _letterSequenceForWord(activeWord);
+    final lockedCells = _lockedCellsForWord(puzzle, activeWord);
+    final keys = <String>[
+      for (var index = 0; index < length; index++)
+        cellKeyFor(
+          activeWord.row + (activeWord.isAcross ? 0 : index),
+          activeWord.col + (activeWord.isAcross ? index : 0),
+        ),
+    ];
     final characters = value.characters.toList(growable: false);
-    var typedIndex = 0;
-    for (var index = 0; index < length; index++) {
-      if (known[index] != null) {
-        sequence[index] = known[index];
-        continue;
-      }
-      if (typedIndex >= characters.length) {
-        break;
-      }
-      final character = characters[typedIndex];
-      if (RegExp(r'[a-zA-Z]').hasMatch(character)) {
-        sequence[index] = character.toUpperCase();
-      }
-      typedIndex++;
-    }
+
+    // The field always carries one character per square, `_` marking a square
+    // the player has not typed yet. Reading it positionally is what keeps a
+    // crossing letter anchored to its own square, so it is never mistaken for
+    // typed input and nothing shifts along it.
+    final fieldCharacters = <String>[
+      for (var index = 0; index < length; index++)
+        index < characters.length ? characters[index] : '_',
+    ];
+    final sequence = resolveClueLettersFromField(
+      lockedLetters: [
+        for (var index = 0; index < length; index++)
+          lockedCells.contains(keys[index]) ? shown[index] : null,
+      ],
+      shownLetters: shown,
+      existingLetters: [
+        for (var index = 0; index < length; index++)
+          _enteredLettersByCell[keys[index]]?.toUpperCase(),
+      ],
+      fieldCharacters: fieldCharacters,
+    );
 
     final entered = Map<String, String>.from(_enteredLettersByCell);
     for (var index = 0; index < sequence.length; index++) {
-      final key = cellKeyFor(
-        activeWord.row + (activeWord.isAcross ? 0 : index),
-        activeWord.col + (activeWord.isAcross ? index : 0),
-      );
       final letter = sequence[index];
       if (letter == null) {
-        entered.remove(key);
+        entered.remove(keys[index]);
         continue;
       }
-      entered[key] = letter;
+      entered[keys[index]] = letter;
     }
 
     setState(() {
@@ -295,7 +389,7 @@ class _CrosswordGameState extends State<CrosswordGame> {
 
     // Rewrite the field so the known letters stay visible in sequence and the
     // caret returns to the first blank, ready for the next character.
-    _writeFieldForSequence(sequence);
+    _writeFieldForSequence(sequence, lockedCells: lockedCells, keys: keys);
     _inputFocusNode.requestFocus();
   }
 

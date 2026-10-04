@@ -22,6 +22,153 @@ void main() {
     },
   );
 
+  group('nextTypingIndex', () {
+    test('moves to the next blank square', () {
+      expect(nextTypingIndex([null, null, null]), 0);
+      expect(nextTypingIndex(['A', null, null]), 1);
+      expect(nextTypingIndex(['A', 'B', null]), 2);
+    });
+
+    test('steps over a square locked by a crossing letter', () {
+      // "A _ _" where the first square is locked by another clue: the caret
+      // must land on the second square, not restart at the start.
+      expect(
+        nextTypingIndex(
+          [null, null, null],
+          lockedIndexes: {0},
+        ),
+        1,
+      );
+
+      expect(
+        nextTypingIndex(
+          ['A', null, null],
+          lockedIndexes: {0},
+        ),
+        1,
+      );
+
+      expect(
+        nextTypingIndex(
+          ['A', null, null],
+          lockedIndexes: {0, 1},
+        ),
+        2,
+      );
+    });
+
+    test('rests on the last square when every square is filled', () {
+      expect(nextTypingIndex(['A', 'B', 'C']), 2);
+      expect(nextTypingIndex(const []), 0);
+    });
+  });
+
+  group('resolveClueLettersFromField', () {
+    List<String?> call({
+      required List<String?> locked,
+      required List<String?> shown,
+      required List<String?> existing,
+      required String field,
+    }) => resolveClueLettersFromField(
+      lockedLetters: locked,
+      shownLetters: shown,
+      existingLetters: existing,
+      fieldCharacters: field.split(''),
+    );
+
+    test('keeps a crossing letter anchored when typing after it', () {
+      // "G___" with E supplied by a crossing Down word at index 1.
+      expect(
+        call(
+          locked: [null, 'E', null, null],
+          shown: [null, 'E', null, null],
+          existing: [null, 'E', null, null],
+          field: 'GE__',
+        ),
+        ['G', 'E', null, null],
+      );
+    });
+
+    test('a blank square keeps the letter it already holds', () {
+      // "G__E": index 2 is a blank, so the square keeps the G it already has.
+      expect(
+        call(
+          locked: [null, 'E', null, null],
+          shown: [null, 'E', null, null],
+          existing: [null, 'E', 'G', null],
+          field: 'G__E',
+        ),
+        ['G', 'E', 'G', 'E'],
+      );
+    });
+
+    test('a correct letter is shown again even when the field blanks it', () {
+      // The square at index 2 already holds the correct G, so it shows again
+      // rather than being cleared by the blank in the field.
+      expect(
+        call(
+          locked: [null, 'E', null, null],
+          shown: [null, 'E', 'G', null],
+          existing: [null, 'E', 'G', null],
+          field: 'G__E',
+        ),
+        ['G', 'E', 'G', 'E'],
+      );
+    });
+
+    test('a crossing letter is never overwritten by typed input', () {
+      expect(
+        call(
+          locked: [null, 'E', null],
+          shown: [null, 'E', null],
+          existing: [null, 'E', null],
+          field: 'GZG',
+        ),
+        ['G', 'E', 'G'],
+      );
+    });
+
+    test('typing letters fills each square in place without shifting', () {
+      const length = 8;
+
+      // An "E" crossing at index 1 of an eight letter word.
+            final locked = List<String?>.filled(length, null)..[1] = 'E';
+
+            final typed = List<String?>.filled(length, null)..[1] = 'E';
+            var existing = List<String?>.filled(length, null);
+            for (var index = 0; index < length; index++) {
+              if (typed[index] != null) {
+                continue;
+              }
+              typed[index] = 'X';
+              final shown = List<String?>.filled(length, null)..[1] = 'E';
+              final result = resolveClueLettersFromField(
+                lockedLetters: locked,
+                shownLetters: shown,
+                existingLetters: existing,
+                fieldCharacters: typed
+                    .map((letter) => letter ?? '_')
+                    .toList(growable: false),
+              );
+
+              expect(
+                result[1],
+                'E',
+                reason: 'the crossing letter must never move or be replaced',
+              );
+              expect(result.length, length);
+              for (var check = 0; check < length; check++) {
+                expect(
+                  result[check],
+                  typed[check],
+                  reason: 'square $check holds exactly the letter typed into it',
+                );
+              }
+              existing = List<String?>.from(result);
+            }
+          });
+  });
+
   group('nextCellInWord', () {
     test('advances within an across word', () {
       expect(nextCellInWord(placed, '0:0'), '0:1');
