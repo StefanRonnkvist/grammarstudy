@@ -17,6 +17,7 @@ class CrosswordGrid extends StatelessWidget {
     required this.enteredLettersByCell,
     required this.revealedWordIds,
     required this.selectedCellKey,
+    required this.activeWordId,
     required this.startNumberByWordId,
     required this.startNumberByCellKey,
     required this.onCellTapped,
@@ -27,6 +28,8 @@ class CrosswordGrid extends StatelessWidget {
   final Map<String, String> enteredLettersByCell;
   final Set<int> revealedWordIds;
   final String? selectedCellKey;
+  /// Word whose squares typing currently fills, highlighted on the board.
+  final int? activeWordId;
   final Map<int, int> startNumberByWordId;
   final Map<String, int> startNumberByCellKey;
   final ValueChanged<String> onCellTapped;
@@ -70,6 +73,7 @@ class CrosswordGrid extends StatelessWidget {
             }
 
             final cellWordIds = puzzle.wordIdsByCell[key] ?? <int>{};
+            final isActiveWord = activeWordId != null && cellWordIds.contains(activeWordId);
             final isRevealed = cellWordIds.any(revealedWordIds.contains);
             final enteredLetter = enteredLettersByCell[key];
             final isSelected = selectedCellKey == key;
@@ -97,7 +101,9 @@ class CrosswordGrid extends StatelessWidget {
                         : defaultCellBorderColor,
                     width: isSelected ? 2 : 1,
                   ),
-                  color: defaultCellFillColor,
+                  color: isSelected || isActiveWord
+                      ? colorScheme.primary.withValues(alpha: isSelected ? 0.16 : 0.08)
+                      : defaultCellFillColor,
                 ),
                 child: Stack(
                   children: [
@@ -149,6 +155,7 @@ class CrosswordInputCard extends StatelessWidget {
     required this.controller,
     required this.focusNode,
     required this.selectedCellKey,
+    required this.activeWordLabel,
     required this.onInputChanged,
     required this.onClearCell,
   });
@@ -156,6 +163,8 @@ class CrosswordInputCard extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final String? selectedCellKey;
+  /// Clue text shown while typing, describing the squares being filled.
+  final String? activeWordLabel;
   final ValueChanged<String> onInputChanged;
   final VoidCallback onClearCell;
 
@@ -173,7 +182,7 @@ class CrosswordInputCard extends StatelessWidget {
                     selectedCellKey == null
                         ? 'Tap a crossword cell to enter letters. '
                               'Tap the same cell again for its sentence hint.'
-                        : 'Selected cell: $selectedCellKey',
+                        : 'Typing into: $activeWordLabel',
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -189,15 +198,14 @@ class CrosswordInputCard extends StatelessWidget {
               controller: controller,
               focusNode: focusNode,
               enabled: selectedCellKey != null,
-              maxLength: 1,
+              maxLength: null,
               textCapitalization: TextCapitalization.characters,
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z_]')),
               ],
               onChanged: onInputChanged,
               decoration: const InputDecoration(
-                counterText: '',
-                hintText: 'Type one letter',
+                hintText: 'Type the letters for this clue',
                 prefixIcon: Icon(Icons.keyboard),
                 border: OutlineInputBorder(),
               ),

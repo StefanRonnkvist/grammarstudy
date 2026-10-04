@@ -72,6 +72,38 @@ String? nextCellKeyAfterEntry(CrosswordPuzzle puzzle, String currentCellKey) {
   return nextFilledCellRowMajor(puzzle, currentCellKey);
 }
 
+/// Returns the word that typing should fill when [cellKey] is selected.
+///
+/// Keeps [preferredWordId] when that word still runs through the cell, so
+/// typing stays inside one clue; otherwise Across wins, then Down.
+CrosswordPlacedWord? activeWordForCell(
+  CrosswordPuzzle puzzle,
+  String cellKey, {
+  int? preferredWordId,
+}) {
+  final wordIds = puzzle.wordIdsByCell[cellKey] ?? const <int>{};
+  final words =
+      wordIds
+          .map(puzzle.wordById)
+          .whereType<CrosswordPlacedWord>()
+          .toList(growable: false)
+        ..sort((a, b) {
+          if (a.isAcross != b.isAcross) {
+            return a.isAcross ? -1 : 1;
+          }
+          return a.id.compareTo(b.id);
+        });
+
+  if (preferredWordId != null) {
+    for (final word in words) {
+      if (word.id == preferredWordId) {
+        return word;
+      }
+    }
+  }
+  return words.isEmpty ? null : words.first;
+}
+
 /// Assigns sequential clue numbers to occupied cells in row-major order.
 Map<String, int> buildClueNumbersByCell(CrosswordPuzzle puzzle) {
   final clueNumbers = <String, int>{};

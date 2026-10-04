@@ -136,5 +136,52 @@ void main() {
       // The rebuilt puzzle should expose the single longer word's clue.
       expect(find.textContaining('letters'), findsWidgets);
     });
+
+    testWidgets('fills the clue squares from the typed word', (
+      tester,
+    ) async {
+      await tester.pumpWidget(buildSubject());
+      await tester.pumpAndSettle();
+
+      // Tap the first empty grid square; it sits inside the cell's container.
+      final emptyLetter = find.descendant(
+        of: find.byType(GridView),
+        matching: find.text(''),
+      );
+      expect(emptyLetter, findsWidgets);
+      await tester.tap(
+        find.ancestor(of: emptyLetter.first, matching: find.byType(Container)).first,
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('Typing into:'), findsOneWidget);
+
+      final field = find.byType(TextField).last;
+      String fieldText() =>
+          tester.widget<TextField>(field).controller?.text ?? '';
+
+      // An untouched clue shows blanks in the field.
+      expect(fieldText(), '___');
+
+      // Typing fills the blanks in order and the field shows the whole word.
+      await tester.enterText(field, 'cat');
+      await tester.pumpAndSettle();
+      expect(fieldText(), 'CAT');
+
+      // A letter typed by the player is never locked in, so typing different
+      // characters replaces it instead of repeating the previous letter.
+      await tester.enterText(field, 'xyz');
+      await tester.pumpAndSettle();
+      expect(fieldText(), 'XYZ');
+
+      await tester.enterText(field, 'dog');
+      await tester.pumpAndSettle();
+      expect(fieldText(), 'DOG');
+
+      // Shortening back to one character keeps the first position.
+      await tester.enterText(field, 'c');
+      await tester.pumpAndSettle();
+      expect(fieldText(), 'C__');
+    });
   });
 }
