@@ -31,6 +31,6 @@ STUDY YOUR WAY
 
 SUPPORT AND PRIVACY
 
-Use Contact Us in the Information tab to send a question or correction, and Submissions to review entries for this app. Both need an internet connection; everything else does not. The app includes no advertising and no analytics.
+Use Contact Us in the Information tab to send a question or correction, and Submissions to review entries for this app. Sending a message and loading Submissions require an internet connection; reference and game content do not. The app includes no advertising and no analytics.
 
-Grammar reference content and games ship with the app, so they work offline. Preferences, study data, and game progress are stored only on your device.
+Grammar reference content ships with the app for offline use. Your theme and selected grammar category are saved on your device; game rounds are not saved between sessions. On web, saved preferences depend on browser storage.

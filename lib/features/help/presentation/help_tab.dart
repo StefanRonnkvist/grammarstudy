@@ -23,7 +23,7 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Grammar Tab',
         body:
-            'Choose a grammar category with the inner tabs. Its definition appears above the values when available, and the last selected category is remembered. Search matches anywhere in a value and places results that begin with your search first. Select an underlined value to open matching sentences. Each result starts as plain text; select it to toggle the tagged structure.',
+            'Choose a grammar category with the inner tabs. Its definition appears above the values when available, and the last selected category is remembered on this device. Search matches anywhere in a value and places results that begin with your search first. Select an underlined value to open matching sentences. Each result starts as plain text; select it to toggle the tagged structure.',
       ),
       (
         title: 'Structure Tab',
@@ -38,12 +38,12 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Information Tab',
         body:
-            'Use Contact Us to send a question, correction, or suggestion. The form sends your name, return email, and message together with app and device details such as package, version, platform, layout, and submission time. Submissions downloads and displays entries associated with this app. Both views require an internet connection; study and game features use bundled data.',
+            'Use Contact Us to send a question, correction, or suggestion. The form sends your name, return email, and message together with diagnostics including package, app version and build, platform, layout, orientation, and submission time. Submissions downloads a remote CSV and displays entries associated with this app. Both views require an internet connection; study and game features use bundled data.',
       ),
       (
         title: 'Theme And Preferences',
         body:
-            'Use the palette icon in the app bar to switch between System, Light, and Dark themes. Theme and selected grammar category preferences are saved on this device. Web preferences depend on browser storage.',
+            'Use the palette icon in the app bar to switch between System, Light, and Dark themes. Theme and selected grammar category preferences are saved on this device; game rounds and progress are not saved between sessions. On web, saved preferences depend on browser storage.',
       ),
       (
         title: 'Database And Troubleshooting',
@@ -53,7 +53,7 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Offline Use And Privacy',
         body:
-            'Grammar categories, definitions, sentence collections, and games are bundled with the app and do not need a continuous internet connection. Network access is used only when you submit the Contact Us form or open Submissions. The app does not include advertising or analytics packages.',
+            'Grammar categories, definitions, sentence collections, and games are bundled with the app and do not need an internet connection. Network access is used when you send the Contact Us form or load Submissions. Contact Us sends the details listed in the Information section above. The app does not include advertising or analytics packages.',
       ),
       (
         title: 'Learning Tips',

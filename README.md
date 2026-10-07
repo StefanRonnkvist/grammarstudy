@@ -27,8 +27,7 @@ Flutter runner projects are configured for Android, iOS, web, Windows, Linux, an
 `com.stefanronnkvist.paid.grammarstudy`
 
 ## Version
-
-`1.0.43+45`
+`1.0.49+51` (from `pubspec.yaml`)
 
 ## Google Play Listing
 
@@ -38,7 +37,7 @@ Store listing copy is maintained in:
 - [store_listing/google_play_long_synopsis.txt](store_listing/google_play_long_synopsis.txt) - maximum 4,000 characters
 
 - Short synopsis (80-character limit):
-  Explore grammar in real sentences and practice with three interactive games.
+  Learn grammar in real sentences and practise with three interactive games.
 
 - Long synopsis highlights:
   - Grammar categories with definitions, searchable values, and matching sentences.
@@ -146,9 +145,9 @@ Runtime/build assets currently used:
 
 ## Connectivity And Data
 
-- Grammar content, preferences, and game data are stored locally. On web, persistence depends on browser storage.
-- Contact Us sends the entered name, email, and question together with package, version, build, platform, layout, orientation, and submission time diagnostics to the configured contact endpoint.
-- Submissions downloads the app's submissions CSV and filters it for the current package.
+- Grammar content is bundled with the app. Theme and selected grammar category preferences are stored locally; on web, persistence depends on browser storage.
+- Contact Us sends the entered name, email, and question together with package, version, build, platform, layout, orientation, and submission-time diagnostics to the configured contact endpoint.
+- Submissions downloads a remote CSV and filters its entries for the current package. Contact Us and Submissions require an internet connection; reference and game content do not.
 - No analytics or advertising dependencies are included.
 
 ## Developer
