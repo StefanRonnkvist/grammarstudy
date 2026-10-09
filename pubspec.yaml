@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.51+53
+version: 1.0.52+54
 
 environment:
   sdk: ^3.12.2
@@ -98,7 +98,7 @@ msix_config:
   display_name: Grammar Study
   publisher_display_name: Stefan Ronnkvist
   identity_name: com.stefanronnkvist.paid.grammarstudy
-  msix_version: 1.0.51.53
+  msix_version: 1.0.52.54
   logo_path: windows/runner/resources/app_icon.ico
   output_name: grammarstudy
   capabilities: internetClient
