@@ -6,7 +6,7 @@ FIND GRAMMAR IN REAL SENTENCES
 
 The Grammar tab groups vocabulary into categories. Pick a category to see its definition and its values, search within it, then select a value to open the sentences that use it. Every result starts as plain text and switches to its tagged grammatical structure when selected.
 
-The Structure tab lists the same sentences with their grammar tags, so you can study annotated patterns. The Sentence tab lists them as clean, readable examples. Both filter and sort as you type, and matches beginning with your search are listed first.
+The Structure tab lists the same sentences with their grammar tags, so you can study annotated patterns. The Sentence tab lists them as clean, readable examples. Both filter as you type and rank matches beginning with your search first.
 
 PRACTICE WITH THREE GAMES
 
@@ -31,6 +31,6 @@ STUDY YOUR WAY
 
 SUPPORT AND PRIVACY
 
-Use Contact Us in the Information tab to send a question or correction, and Submissions to review entries for this app. Sending a message and loading Submissions require an internet connection; reference and game content do not. The app includes no advertising and no analytics.
+Use Contact Us in the Information tab to send a question, correction, or suggestion. The form sends your name, return email, message, and app diagnostics. Submissions loads a remote list of entries associated with this app. Sending a message and loading Submissions require an internet connection; reference and game content do not. The app includes no advertising and no analytics.
 
 Grammar reference content ships with the app for offline use. Your theme and selected grammar category are saved on your device; game rounds are not saved between sessions. On web, saved preferences depend on browser storage.

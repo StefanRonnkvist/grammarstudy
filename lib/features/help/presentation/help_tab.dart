@@ -16,34 +16,34 @@ class HelpTab extends StatelessWidget {
         title: 'Games Tab',
         body:
             'Choose Crossword, Slide, or Drag from the inner tabs. Games opens on Drag.\n\n'
-            '• Crossword: select a numbered cell and type one letter. Correct entries appear green and incorrect entries red. The clue list gives the direction, length, and word type. Select a clue, or select the same grid cell twice, for a sentence hint and the option to reveal that word. Hint summarizes all words in the puzzle, Clear Cell removes the selected entry, and New Puzzle starts over.\n\n'
-            '• Slide: drag each vertical letter column until one letter lines up with the horizontal target row, then select Submit. Correct positions remain revealed while the other columns stay movable. Select the underlined word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.\n\n'
-            '• Drag: move each word from the word list to the matching blank in the tagged sentence. Matching colors confirm a correct placement. An incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.',
+            '• Crossword: select a numbered cell and type one letter. Correct entries appear green and incorrect entries red. The clue list gives the direction, answer length, and word type. Select a clue, or select the same grid cell twice, for a sentence hint and the option to reveal that word. Hint summarizes the puzzle, Clear Cell removes the selected entry, and New Puzzle starts a fresh grid.\n\n'
+            '• Slide: drag each vertical letter column until one letter lines up with the horizontal target row, then select Submit. Correct positions lock in place while the remaining columns stay movable. Select the underlined word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.\n\n'
+            '• Drag: move each word from the word list to the matching blank in the tagged sentence. Matching colors confirm a correct placement. An incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.'
       ),
       (
         title: 'Grammar Tab',
         body:
-            'Choose a grammar category with the inner tabs. Its definition appears above the values when available, and the last selected category is remembered on this device. Search matches anywhere in a value and places results that begin with your search first. Select an underlined value to open matching sentences. Each result starts as plain text; select it to toggle the tagged structure.',
+            'Choose a grammar category with the inner tabs. Its definition appears above the values when available, and the last selected category is remembered on this device. Search matches anywhere in a value and ranks values beginning with your search first. Select an underlined value to open matching sentences. Each result starts as plain text; select it to toggle the tagged structure.',
       ),
       (
         title: 'Structure Tab',
         body:
-            'Browse sentences with parenthesized grammar tags that identify their structure. Search filters and sorts the entries as you type.',
+            'Browse sentences with parenthesized grammar tags that identify their structure. Search filters the entries as you type, ranking matches that begin with your search first.',
       ),
       (
         title: 'Sentence Tab',
         body:
-            'Browse the same study material as plain sentences without grammar tags. Search filters and sorts the examples as you type.',
+            'Browse the same study material as plain sentences without grammar tags. Search filters the examples as you type, ranking matches that begin with your search first.',
       ),
       (
         title: 'Information Tab',
         body:
-            'Use Contact Us to send a question, correction, or suggestion. The form sends your name, return email, and message together with diagnostics including package, app version and build, platform, layout, orientation, and submission time. Submissions downloads a remote CSV and displays entries associated with this app. Both views require an internet connection; study and game features use bundled data.',
+            'Use Contact Us to send a question, correction, or suggestion. The form sends your name, return email, and message together with diagnostics including package, app version and build, platform, layout, orientation, and submission time. Submissions loads a remote CSV and displays entries associated with this app. Both views require an internet connection; study and game features use bundled data.',
       ),
       (
         title: 'Theme And Preferences',
         body:
-            'Use the palette icon in the app bar to switch between System, Light, and Dark themes. Theme and selected grammar category preferences are saved on this device; game rounds and progress are not saved between sessions. On web, saved preferences depend on browser storage.',
+            'Use the palette icon in the app bar to switch between System, Light, and Dark themes. Theme and selected grammar category preferences are saved on this device; game rounds and progress are not saved between sessions. On web, saved preferences depend on browser storage. The last selected Grammar category is remembered when you return to the app.',
       ),
       (
         title: 'Database And Troubleshooting',

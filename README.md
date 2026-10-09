@@ -5,16 +5,16 @@ Grammar Study is a Flutter grammar reference and practice app. It combines categ
 ## Features
 
 - **Games tab** - Three practice modes (opens on Drag):
-  - **Crossword:** solve generated puzzles with direction, length, word-type clues, sentence hints, immediate letter feedback, and optional word reveals.
-  - **Slide:** align draggable letter columns, submit the arrangement, and lock correctly placed letters in a hidden word.
-  - **Drag:** rebuild tagged sentences by moving removed words to their matching positions.
+  - **Crossword:** solve generated puzzles from grammar vocabulary. Clues show direction, answer length, and word type; entries get immediate correct/incorrect color feedback. Open a clue or select the same cell twice for a sentence hint and optional reveal; use Hint for a puzzle overview, Clear Cell, or New Puzzle.
+  - **Slide:** drag vertical letter columns to align the hidden answer with the target row. Submit to lock correct positions; use the word-type definition, a sentence hint, or New Word.
+  - **Drag:** rebuild tagged sentences by dragging words into matching blanks. Correct placements are confirmed by color; incorrect drops remain available to retry.
 - **Grammar tab** - Browse searchable values by category, read available definitions, and open matching sentences. Each result toggles between plain and tagged text.
 - **Structure tab** - Search and browse tagged sentence structures with live filtering.
 - **Sentence tab** - Search and browse plain sentence examples with live filtering.
 - **Help tab** - Read guidance for the six top tabs, game controls, themes, database recovery, and offline/privacy behaviour.
 - **Information tab** - Send a question or correction through Contact Us and review this app's submissions.
 - **Theme support** - System, light, and dark modes saved locally.
-- **DB diagnostics** - Inspect loaded data counts and restore bundled database content.
+- **Database diagnostics** - Inspect loaded grammar, sentence, and definition counts and restore the bundled database.
 - **Local study data** - Native builds restore from a bundled Hive database when possible; every platform can rebuild the same content from bundled exports.
 - **Responsive layout** - Game layouts adapt for phones, tablets, and larger screens.
 
@@ -27,7 +27,13 @@ Flutter runner projects are configured for Android, iOS, web, Windows, Linux, an
 `com.stefanronnkvist.paid.grammarstudy`
 
 ## Version
-`1.0.49+51` (from `pubspec.yaml`)
+`1.0.51+53` (from `pubspec.yaml`)
+
+## Getting Started
+
+A suggested study path is to choose a category in Grammar, read its definition and values, open matching sentences, compare the plain and tagged forms, and practise in Games. Structure shows tagged examples; Sentence shows the same material without tags. Search results are filtered as you type, with prefix matches ranked first. The Help tab explains game controls, preferences, offline use, and recovery.
+
+Theme selection (System, Light, or Dark) and the last selected grammar category are saved locally. Game rounds are not saved between sessions. Grammar, definitions, examples, and games use bundled data; Contact Us and Submissions need internet access. The app includes no ads or analytics.
 
 ## Google Play Listing
 
