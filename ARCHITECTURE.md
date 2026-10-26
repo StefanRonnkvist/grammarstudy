@@ -33,11 +33,10 @@ main → app → features → data → (Hive/assets)
 
 `main()` → `WidgetsFlutterBinding.ensureInitialized()` → `runApp(AppBootstrap())`.
 
-`AppBootstrap` is a 3-state machine, resolved in `build()`:
+`AppBootstrap` displays the splash screen until initialization completes, then renders the main application:
 
 | State | Condition | Rendered widget |
 |---|---|---|
-| error | `_startupError != null` | `DatabaseLoadErrorApp` |
 | ready | `_isReady == true` | `MainApp` |
 | loading | default | `MaterialApp(home: SplashScreen())` |
 
@@ -52,10 +51,7 @@ Future.wait([
 
 Design notes:
 * Splash duration is a *floor*, not a timeout — the DB always wins when it is slow.
-* Errors are both reported to `FlutterError.reportError` (observability) and captured
-  into state (user-facing recovery UI).
 * All `setState` calls are guarded by `mounted`.
-* Error branch is checked **before** the ready branch, so a late error can never be masked.
 
 ---
 
