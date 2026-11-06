@@ -10,55 +10,50 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Getting Started',
         body:
-            'Use the top tabs to move between Games, Grammar, Structure, Sentence, Help, and Information. A useful study path is to choose a category in Grammar, open a few examples, compare their plain and tagged forms, and then practice in Games.',
+            'The six top-level tabs are Games, Grammar, Structure, Sentence, Help, and Information. Try Grammar first: choose a category, review its definition and values, then open a value to see sentences that use it. Compare each example in plain and tagged form, and practise what you learned in Games.',
       ),
       (
         title: 'Games Tab',
         body:
-            'Choose Crossword, Slide, or Drag from the inner tabs. Games opens on Drag.\n\n'
-            '• Crossword: select a numbered cell and type one letter. Correct entries appear green and incorrect entries red. The clue list gives the direction, answer length, and word type. Select a clue, or select the same grid cell twice, for a sentence hint and the option to reveal that word. Hint summarizes the puzzle, Clear Cell removes the selected entry, and New Puzzle starts a fresh grid.\n\n'
-            '• Slide: drag each vertical letter column until one letter lines up with the horizontal target row, then select Submit. Correct positions lock in place while the remaining columns stay movable. Select the underlined word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.\n\n'
-            '• Drag: move each word from the word list to the matching blank in the tagged sentence. Matching colors confirm a correct placement. An incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.'
+            'Choose Crossword, Slide, or Drag from the game tabs. Games opens on Drag. Your current round and game progress are not saved between sessions.\n\n'
+            '• Crossword: select a numbered grid cell and type the active word one letter at a time. A cell shared by Across and Down clues lets you choose which word to answer. Complete a word to see correct letters in green and incorrect letters in red. Clues give direction, length, and word type. Select a clue or tap its selected grid cell again to see a sentence hint and optionally reveal the word. Hint shows masked words and types for the whole puzzle. Clear Cell clears editable letters in the active word; crossing or revealed letters stay. New Puzzle generates another grid.\n\n'
+            '• Slide: drag vertical letter columns until the target letters line up with the horizontal row, then select Submit. The correct-letter count shows your result; correct positions lock in place while other columns remain movable. Select the word type for its definition, Hint for a sentence example, or New Word for another round.\n\n'
+            '• Drag: drag each word from the word list to its matching blank in the tagged sentence. Correct placements are confirmed by color and become fixed. Incorrect drops flash red; the word stays available to try again. Select New Sentence for another round.'
       ),
       (
-        title: 'Grammar Tab',
+        title: 'Grammar',
         body:
-            'Choose a grammar category with the inner tabs. Its definition appears above the values when available, and the last selected category is remembered on this device. Search matches anywhere in a value and ranks values beginning with your search first. Select an underlined value to open matching sentences. Each result starts as plain text; select it to toggle the tagged structure.',
+            'Choose a category from the inner tabs. Its definition appears above the values when available. Search filters the values as you type and ranks values that start with your search first. Select a value to open its matching sentences. Each result starts as plain text; select it to switch to the tagged structure. Your last selected category is remembered on this device.',
       ),
       (
-        title: 'Structure Tab',
+        title: 'Structure And Sentence',
         body:
-            'Browse sentences with parenthesized grammar tags that identify their structure. Search filters the entries as you type, ranking matches that begin with your search first.',
+            'Structure shows the study sentences with parenthesized grammar tags. Sentence shows the same collection as plain text without tags. Search either list as you type; entries beginning with your search are ranked first.',
       ),
       (
-        title: 'Sentence Tab',
+        title: 'Information: Contact Us And Submissions',
         body:
-            'Browse the same study material as plain sentences without grammar tags. Search filters the examples as you type, ranking matches that begin with your search first.',
-      ),
-      (
-        title: 'Information Tab',
-        body:
-            'Use Contact Us to send a question, correction, or suggestion. The form sends your name, return email, and message together with diagnostics including package, app version and build, platform, layout, orientation, and submission time. Submissions loads a remote CSV and displays entries associated with this app. Both views require an internet connection; study and game features use bundled data.',
+            'Contact Us lets you send a question, correction, or suggestion. The form sends your name, return email, and message along with app diagnostics: package name, app version and build, platform, layout, orientation, and submission time. Submissions loads a remote CSV and shows entries associated with this app. Both features need an internet connection; grammar reference and games use bundled data.',
       ),
       (
         title: 'Theme And Preferences',
         body:
-            'Use the palette icon in the app bar to switch between System, Light, and Dark themes. Theme and selected grammar category preferences are saved on this device; game rounds and progress are not saved between sessions. On web, saved preferences depend on browser storage. The last selected Grammar category is remembered when you return to the app.',
+            'Use the palette icon in the app bar to choose System, Light, or Dark theme. Theme and the selected Grammar category are saved on this device. Game rounds and progress are not saved between sessions. On web, saved preferences and study data depend on browser storage and may be removed if site data is cleared.',
       ),
       (
         title: 'Database And Troubleshooting',
         body:
-            'Use the storage icon in the app bar to open Database Diagnostics and review the loaded grammar, sentence, and definition counts. If content is missing, select Restore and wait for confirmation. Native builds first restore the packaged database; web builds and native fallback recovery rebuild it from bundled exports. Web data and preferences use browser storage and can be removed when browser site data is cleared.',
+            'Select the storage icon in the app bar to open Database Diagnostics and review loaded grammar, sentence, and definition counts. If study content is missing, choose Restore and wait for the confirmation message. Native builds restore the packaged database when possible; web and native fallback recovery rebuild from the exports bundled with the app. If browser storage was cleared, reopen the app to seed the study data again.',
       ),
       (
         title: 'Offline Use And Privacy',
         body:
-            'Grammar categories, definitions, sentence collections, and games are bundled with the app and do not need an internet connection. Network access is used when you send the Contact Us form or load Submissions. Contact Us sends the details listed in the Information section above. The app does not include advertising or analytics packages.',
+            'Grammar categories, definitions, sentence examples, and games are bundled with the app and work offline. Internet access is used to send Contact Us or load Submissions. Contact Us sends the information described above. The app does not include advertising or analytics packages.',
       ),
       (
-        title: 'Learning Tips',
+        title: 'Study Tips',
         body:
-            'Start in Grammar to learn a category and open examples. Use Structure to study annotated patterns and Sentence to focus on natural wording. Finish with Crossword for vocabulary recall, Slide for spelling and category cues, or Drag for sentence reconstruction.',
+            'Use Grammar to learn a category and find examples. Compare the tagged patterns in Structure with the readable examples in Sentence. Practise vocabulary with Crossword, spelling and word categories with Slide, or sentence structure with Drag.',
       ),
     ];
 

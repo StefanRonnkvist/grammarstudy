@@ -11,13 +11,13 @@ The Structure tab lists the same sentences with their grammar tags, so you can s
 PRACTICE WITH THREE GAMES
 
 CROSSWORD
-Solve generated crosswords built from grammar vocabulary. Clues give the direction, length, and word type. Select a cell and type one letter at a time: correct entries turn green, incorrect ones turn red. Select a clue, or tap the same cell twice, for a sentence hint and the option to reveal that word. Hint summarizes the whole puzzle, Clear Cell removes the selected entry, and New Puzzle starts a fresh grid.
+Solve generated crosswords built from grammar vocabulary. Clues give the direction, length, and word type. Select a numbered cell and type the active word one letter at a time. At intersections, choose which clue to answer. Complete a word to see correct letters in green and incorrect letters in red. Select a clue, or tap its selected cell again, for a sentence hint and the option to reveal that word. Hint shows masked words and types for the puzzle; Clear Cell clears editable letters in the active word, and New Puzzle starts a fresh grid.
 
 SLIDE
-Drag each vertical letter column until one letter lines up with the horizontal target row, then select Submit. Correct positions lock in place while the remaining columns stay movable. Select the underlined word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.
+Drag each vertical letter column until a letter lines up with the horizontal target row, then select Submit to check your answer. The correct-letter count shows your result; correct positions lock in place while the other columns remain movable. Select the word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.
 
 DRAG
-Rebuild a tagged sentence by dragging each word from the word list into its matching blank. Matching colors confirm a correct placement; an incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.
+Rebuild a tagged sentence by dragging each word from the word list into its matching blank. Matching colors confirm correct placements and fix them in place; an incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.
 
 STUDY YOUR WAY
 
@@ -26,6 +26,7 @@ STUDY YOUR WAY
 - Open a word type for its definition without leaving the puzzle
 - Choose System, Light, or Dark theme
 - Resume from the grammar category you used last
+- Start another round at any time; game progress is not saved between sessions
 - Work on phones, tablets, and larger screens
 - Check loaded data counts and restore the bundled database
 
