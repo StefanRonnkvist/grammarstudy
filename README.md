@@ -27,7 +27,7 @@ Flutter runner projects are configured for Android, iOS, web, Windows, Linux, an
 `com.stefanronnkvist.paid.grammarstudy`
 
 ## Version
-`1.0.54+56` (from `pubspec.yaml`)
+`1.0.58+60` (from `pubspec.yaml`)
 
 ## Getting Started
 

@@ -6,7 +6,6 @@
       "dependsOrder": "sequence",
       "dependsOn": [
         "Pub Update All",
-        "Flutter: Version Bump",
         "Build All Release Targets"
       ],
       "group": "build",
@@ -16,8 +15,8 @@
       "label": "Pub Update All",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "flutter: pub upgrade",
-        "Flutter: Pub Upgrade Major Versions",
+        "Flutter: Pub Upgrade",
+        "Flutter: Pub Upgrade Major",
         "Flutter: Pub Outdated",
         "Flutter: Pub Get"
       ],
@@ -193,7 +192,8 @@
         "-ExecutionPolicy",
         "Bypass",
         "-File",
-        "scripts/bump-version.ps1"
+        "scripts/bump-version.ps1",
+        "-NoGit"
       ],
       "group": "build",
       "problemMatcher": []
