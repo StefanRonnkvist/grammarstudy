@@ -10,7 +10,7 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Getting Started',
         body:
-            'The six top-level tabs are Games, Grammar, Structure, Sentence, Help, and Information. Try Grammar first: choose a category, review its definition and values, then open a value to see sentences that use it. Compare each example in plain and tagged form, and practise what you learned in Games.',
+            'The six top-level tabs are Games, Grammar, Structure, Sentence, Help, and Information. Start in Grammar: choose a category, review its definition and values, then open a value to see matching sentences. Switch examples between plain and tagged forms, then practise in Games. Study content is bundled with the app for offline use.',
       ),
       (
         title: 'Games Tab',
@@ -48,7 +48,7 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Offline Use And Privacy',
         body:
-            'Grammar categories, definitions, sentence examples, and games are bundled with the app and work offline. Internet access is used to send Contact Us or load Submissions. Contact Us sends the information described above. The app does not include advertising or analytics packages.',
+            'Grammar categories, definitions, sentence examples, and games are bundled with the app and work offline. Internet access is used to send Contact Us or load Submissions. Contact Us sends your name, return email, question, and app diagnostics described above. The app does not include advertising or analytics packages.',
       ),
       (
         title: 'Study Tips',
@@ -66,7 +66,7 @@ class HelpTab extends StatelessWidget {
             Text('Help', style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 8),
             Text(
-              'Grammar Study connects grammar categories, tagged structures, plain examples, and practice games. This guide explains the main controls and how the study data is used.',
+              'Grammar Study connects grammar categories, tagged structures, plain examples, and practice games. Study content is bundled for offline use. This guide explains the main controls and how the app uses data.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),

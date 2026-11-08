@@ -1,20 +1,20 @@
-See how words work in context with Grammar Study, a grammar reference and practice app for students, teachers, and independent learners.
+Explore grammar in context with Grammar Study, an offline-first grammar reference and practice app for learners and teachers.
 
-Look up a grammar term, read the definition, compare the same sentence plain and annotated, then practise it in one of three games. All study content is bundled, so the app works without a continuous internet connection.
+Browse grammar categories and definitions, find vocabulary in example sentences, compare plain and tagged forms, and practise with three games. Study content is bundled with the app, so the reference and games work without an internet connection.
 
 FIND GRAMMAR IN REAL SENTENCES
 
-The Grammar tab groups vocabulary into categories. Pick a category to see its definition and its values, search within it, then select a value to open the sentences that use it. Every result starts as plain text and switches to its tagged grammatical structure when selected.
+The Grammar tab groups vocabulary by category. Choose a category to see its definition and values, search as you type, and select a value to open sentences that use it. Each matching sentence can be switched between plain text and its tagged grammatical structure.
 
-The Structure tab lists the same sentences with their grammar tags, so you can study annotated patterns. The Sentence tab lists them as clean, readable examples. Both filter as you type and rank matches beginning with your search first.
+The Structure tab presents tagged sentence examples; Sentence presents the same collection without tags. Both lists filter as you type and rank entries that begin with your search first.
 
 PRACTICE WITH THREE GAMES
 
 CROSSWORD
-Solve generated crosswords built from grammar vocabulary. Clues give the direction, length, and word type. Select a numbered cell and type the active word one letter at a time. At intersections, choose which clue to answer. Complete a word to see correct letters in green and incorrect letters in red. Select a clue, or tap its selected cell again, for a sentence hint and the option to reveal that word. Hint shows masked words and types for the puzzle; Clear Cell clears editable letters in the active word, and New Puzzle starts a fresh grid.
+Solve generated crosswords from grammar vocabulary. Clues show direction, answer length, and word type. Select a numbered cell and enter the active word one letter at a time; at a crossing, choose which clue to answer. Completed words show correct and incorrect letters in color. Open a clue or select its active cell again for a sentence hint and an option to reveal that word. Hint shows masked puzzle answers and word types. Clear Cell clears editable letters in the active word; New Puzzle starts another grid.
 
 SLIDE
-Drag each vertical letter column until a letter lines up with the horizontal target row, then select Submit to check your answer. The correct-letter count shows your result; correct positions lock in place while the other columns remain movable. Select the word type for its definition, use Hint for a sentence containing the answer, or select New Word for another round.
+Move the vertical letter columns to line up the hidden answer with the target row, then select Submit. The correct-letter count shows your result, and correct positions lock while the remaining columns stay movable. Select the word type to read its definition, use Hint for a sentence containing the answer, or choose New Word.
 
 DRAG
 Rebuild a tagged sentence by dragging each word from the word list into its matching blank. Matching colors confirm correct placements and fix them in place; an incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.
@@ -22,8 +22,8 @@ Rebuild a tagged sentence by dragging each word from the word list into its matc
 STUDY YOUR WAY
 
 - Search grammar values, tagged structures, and plain sentences
-- Switch each result between its natural and annotated form
-- Open a word type for its definition without leaving the puzzle
+- Switch matching sentences between plain and tagged forms
+- Read available definitions in Grammar and in Slide
 - Choose System, Light, or Dark theme
 - Resume from the grammar category you used last
 - Start another round at any time; game progress is not saved between sessions
@@ -32,6 +32,6 @@ STUDY YOUR WAY
 
 SUPPORT AND PRIVACY
 
-Use Contact Us in the Information tab to send a question, correction, or suggestion. The form sends your name, return email, message, and app diagnostics. Submissions loads a remote list of entries associated with this app. Sending a message and loading Submissions require an internet connection; reference and game content do not. The app includes no advertising and no analytics.
+Use Contact Us in the Information tab to send a question, correction, or suggestion. The form sends your name, return email, message, and app diagnostics, including package, app version and build, platform, layout, orientation, and submission time. Submissions loads a remote CSV and displays entries associated with this app. Sending a message and loading Submissions require an internet connection; reference and game content do not. The app includes no advertising or analytics.
 
 Grammar reference content ships with the app for offline use. Your theme and selected grammar category are saved on your device; game rounds are not saved between sessions. On web, saved preferences depend on browser storage.

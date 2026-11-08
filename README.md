@@ -5,17 +5,17 @@ Grammar Study is a Flutter grammar reference and practice app. It combines categ
 ## Features
 
 - **Games tab** - Three practice modes (opens on Drag; rounds and progress are not saved between sessions):
-  - **Crossword:** solve generated puzzles from grammar vocabulary. Clues show direction, answer length, and word type. Complete a word to see correct and incorrect letters marked in color. Open a clue or select its cell again for a sentence hint and optional reveal; use Hint for masked puzzle clues, Clear Cell to clear editable letters in the active word, or New Puzzle.
-  - **Slide:** drag vertical letter columns to align the hidden answer with the target row. Submit to check letters and lock correct positions; use the word-type definition, a sentence hint, or New Word.
-  - **Drag:** rebuild tagged sentences by dragging words into matching blanks. Correct placements are confirmed by color; incorrect drops remain available to retry.
-- **Grammar tab** - Browse searchable values by category, read available definitions, and open matching sentences. Each result toggles between plain and tagged text.
-- **Structure tab** - Search and browse tagged sentence structures with live filtering.
-- **Sentence tab** - Search and browse plain sentence examples with live filtering.
-- **Help tab** - Read guidance for the six top tabs, game controls, themes, database recovery, and offline/privacy behaviour.
-- **Information tab** - Send a question or correction through Contact Us and review this app's submissions.
+  - **Crossword:** solve generated puzzles from grammar vocabulary. Clues show direction, answer length, and word type. At crossings, choose which clue to answer. Completed words show correct and incorrect letters in color. Open a clue or select its active cell again for a sentence hint and optional reveal. Hint shows masked puzzle answers and word types; Clear Cell clears editable letters in the active word; New Puzzle creates another grid.
+  - **Slide:** move vertical letter columns to align the hidden answer with the target row. Submit to check the answer; correct positions lock while other columns remain movable. View the word-type definition, get a sentence hint, or choose New Word.
+  - **Drag:** rebuild tagged sentences by dragging words into matching blanks. Correct placements are confirmed by color and become fixed; incorrect drops remain available to retry.
+- **Grammar tab** - Browse grammar categories and their definitions and values, search as you type, and open sentences matching a value. Matching examples switch between plain and tagged text.
+- **Structure tab** - Search tagged sentence examples.
+- **Sentence tab** - Search the same sentence collection without grammar tags.
+- **Help tab** - Read guidance for navigation, game controls, themes, data recovery, and offline/privacy behaviour.
+- **Information tab** - Contact Us sends questions, corrections, or suggestions; Submissions shows remote entries associated with this app.
 - **Theme support** - System, light, and dark modes saved locally.
 - **Database diagnostics** - Inspect loaded grammar, sentence, and definition counts and restore the bundled database.
-- **Local study data** - Native builds restore from a bundled Hive database when possible; every platform can rebuild the same content from bundled exports.
+- **Local study data** - Study content is bundled. Native builds restore from a bundled Hive database when possible; all platforms can rebuild from bundled exports.
 - **Responsive layout** - Game layouts adapt for phones, tablets, and larger screens.
 
 ## Platforms
@@ -31,9 +31,9 @@ Flutter runner projects are configured for Android, iOS, web, Windows, Linux, an
 
 ## Getting Started
 
-A suggested study path is to choose a category in Grammar, read its definition and values, open matching sentences, compare the plain and tagged forms, and practise in Games. Structure shows tagged examples; Sentence shows the same material without tags. Search results are filtered as you type, with entries beginning with your search ranked first. The Help tab explains game controls, preferences, offline use, and recovery.
+A suggested study path is to choose a category in Grammar, read its definition and values, open matching sentences, compare plain and tagged forms, and practise in Games. Structure shows tagged examples; Sentence shows the same collection without tags. Search filters as you type and ranks entries beginning with your search first. The Help tab covers game controls, preferences, offline use, and data recovery.
 
-Theme selection (System, Light, or Dark) and the last selected grammar category are saved locally. Game rounds are not saved between sessions. Grammar, definitions, examples, and games use bundled data; Contact Us and Submissions need internet access. The app includes no ads or analytics.
+Theme selection (System, Light, or Dark) and the selected Grammar category are saved locally. Game rounds and progress are not saved between sessions. Grammar, definitions, examples, and games use bundled data; Contact Us and Submissions require internet access. Contact Us sends your name, return email, message, and app diagnostics (package, version/build, platform, layout, orientation, and submission time). The app includes no ads or analytics.
 
 ## Google Play Listing
 
@@ -43,14 +43,14 @@ Store listing copy is maintained in:
 - [store_listing/google_play_long_synopsis.txt](store_listing/google_play_long_synopsis.txt) - maximum 4,000 characters
 
 - Short synopsis (80-character limit):
-  Study grammar in real sentences and practise offline with three games.
+  Learn grammar in context with offline examples and three practice games.
 
 - Long synopsis highlights:
-  - Grammar categories with definitions, searchable values, and matching sentences.
-  - Structure tab for tagged sentences and Sentence tab for plain examples.
-  - Crossword, Slide, and Drag practice modes with contextual hints; progress is not saved between sessions.
-  - Offline study content, theme options, responsive layouts, and database recovery tools.
-  - Contact Us and Submissions for questions and app-specific feedback.
+  - Grammar categories with definitions, searchable values, and matching examples.
+  - Structure tab for tagged examples and Sentence tab for the same examples without tags.
+  - Crossword, Slide, and Drag practice modes with contextual hints; game progress is not saved between sessions.
+  - Bundled offline study content, theme options, responsive layouts, and database recovery tools.
+  - Contact Us for questions and corrections; Submissions lists remote entries associated with this app.
 
 ## Build
 
