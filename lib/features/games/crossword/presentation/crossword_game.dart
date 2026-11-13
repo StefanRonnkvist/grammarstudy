@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../domain/crossword_models.dart';
 import '../domain/crossword_generator.dart';
 import '../domain/crossword_navigation.dart';
+import '../../presentation/game_scoreboard.dart';
 import 'crossword_views.dart';
 
 /// Hosts the Crossword game: grid, letter entry, and clue list.
@@ -39,6 +40,9 @@ class _CrosswordGameState extends State<CrosswordGame> {
   String? _selectedCellKey;
   int? _activeWordId;
   bool _isSyncingField = false;
+  int _correctValues = 0;
+  int _incorrectValues = 0;
+  final Set<int> _scoredWordIds = <int>{};
 
   @override
   void initState() {
@@ -74,6 +78,7 @@ class _CrosswordGameState extends State<CrosswordGame> {
     setState(() {
       _puzzle = puzzle;
       _revealedWordIds = <int>{};
+      _scoredWordIds.clear();
       _enteredLettersByCell = <String, String>{};
       _selectedCellKey = null;
       _activeWordId = null;
@@ -267,13 +272,19 @@ class _CrosswordGameState extends State<CrosswordGame> {
   }
 
   /// Reports whether every square of [word] already holds a letter.
-  bool _allCellsFilled(CrosswordPuzzle puzzle, CrosswordPlacedWord word) {
+  bool _allCellsFilled(
+    CrosswordPuzzle puzzle,
+    CrosswordPlacedWord word, {
+    Map<String, String>? letters,
+  }) {
+    final enteredLetters = letters ?? _enteredLettersByCell;
     for (var index = 0; index < word.word.length; index++) {
       final key = cellKeyFor(
         word.row + (word.isAcross ? 0 : index),
         word.col + (word.isAcross ? index : 0),
       );
-      if (_enteredLettersByCell[key] == null &&
+      final entered = enteredLetters[key];
+      if ((entered == null || entered == '_') &&
           !_revealedWordIds.contains(word.id)) {
         return false;
       }
@@ -326,9 +337,7 @@ class _CrosswordGameState extends State<CrosswordGame> {
     _isSyncingField = true;
     _inputController.value = TextEditingValue(
       text: text,
-      selection: TextSelection.collapsed(
-        offset: caret.clamp(0, text.length),
-      ),
+      selection: TextSelection.collapsed(offset: caret.clamp(0, text.length)),
     );
     _isSyncingField = false;
   }
@@ -401,9 +410,36 @@ class _CrosswordGameState extends State<CrosswordGame> {
       entered[keys[index]] = letter;
     }
 
+    final isComplete = _allCellsFilled(puzzle, activeWord, letters: entered);
+    var correctValues = 0;
+    var incorrectValues = 0;
+    if (isComplete &&
+        !_scoredWordIds.contains(activeWord.id) &&
+        !_revealedWordIds.contains(activeWord.id)) {
+      for (var index = 0; index < activeWord.word.length; index++) {
+        final key = keys[index];
+        final value = entered[key];
+        if (value == null) {
+          continue;
+        }
+        if (value.toLowerCase() == puzzle.letters[key]?.toLowerCase()) {
+          correctValues++;
+        } else {
+          incorrectValues++;
+        }
+      }
+    }
+
     setState(() {
       _enteredLettersByCell = entered;
       _selectedCellKey ??= cellKeyFor(activeWord.row, activeWord.col);
+      if (isComplete &&
+          !_revealedWordIds.contains(activeWord.id) &&
+          (correctValues + incorrectValues) > 0) {
+        _scoredWordIds.add(activeWord.id);
+      }
+      _correctValues += correctValues;
+      _incorrectValues += incorrectValues;
     });
 
     // Rewrite the field so the known letters stay visible in sequence and the
@@ -530,8 +566,7 @@ class _CrosswordGameState extends State<CrosswordGame> {
 
     // Entered letters are only graded once every square of the clue is filled.
     final isActiveWordComplete =
-        activeWord != null &&
-        _allCellsFilled(puzzle, activeWord);
+        activeWord != null && _allCellsFilled(puzzle, activeWord);
     final startNumbersByCellKey = <String, int>{
       for (final word in puzzle.placedWords)
         cellKeyFor(word.row, word.col): startNumbers[word.id] ?? 0,
@@ -539,6 +574,10 @@ class _CrosswordGameState extends State<CrosswordGame> {
 
     return Column(
       children: [
+        GameScoreboard(
+          correctValues: _correctValues,
+          incorrectValues: _incorrectValues,
+        ),
         Row(
           children: [
             const Expanded(child: SizedBox.shrink()),
@@ -627,10 +666,7 @@ class _CrosswordGameState extends State<CrosswordGame> {
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          buildGrid(),
-                          controlsCard,
-                        ],
+                        children: [buildGrid(), controlsCard],
                       ),
                     ),
                   ),

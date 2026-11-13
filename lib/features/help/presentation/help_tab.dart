@@ -15,10 +15,10 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Games Tab',
         body:
-            'Choose Crossword, Slide, or Drag from the game tabs. Games opens on Drag. Your current round and game progress are not saved between sessions.\n\n'
-            '• Crossword: select a numbered grid cell and type the active word one letter at a time. A cell shared by Across and Down clues lets you choose which word to answer. Complete a word to see correct letters in green and incorrect letters in red. Clues give direction, length, and word type. Select a clue or tap its selected grid cell again to see a sentence hint and optionally reveal the word. Hint shows masked words and types for the whole puzzle. Clear Cell clears editable letters in the active word; crossing or revealed letters stay. New Puzzle generates another grid.\n\n'
-            '• Slide: drag vertical letter columns until the target letters line up with the horizontal row, then select Submit. The correct-letter count shows your result; correct positions lock in place while other columns remain movable. Select the word type for its definition, Hint for a sentence example, or New Word for another round.\n\n'
-            '• Drag: drag each word from the word list to its matching blank in the tagged sentence. Correct placements are confirmed by color and become fixed. Incorrect drops flash red; the word stays available to try again. Select New Sentence for another round.'
+            'Choose Crossword, Slide, or Drag from the game tabs. Games opens on Drag. Each game tab shows running Correct and Incorrect totals. Scores remain while each game screen is active, including when starting another round, and are not saved between app sessions.\n\n'
+            '• Crossword: select a numbered grid cell and type the active word one letter at a time. A cell shared by Across and Down clues lets you choose which word to answer. Complete a word to see correct letters in green and incorrect letters in red; the score counts each entered letter once when its word is first completed. Re-entering or correcting a completed word does not score it again. Revealed words do not add score. Clues give direction, length, and word type. Select a clue or tap its selected grid cell again to see a sentence hint and optionally reveal the word. Hint shows masked words and types for the whole puzzle. Clear Cell clears editable letters in the active word; crossing or revealed letters stay. New Puzzle generates another grid.\n\n'
+            '• Slide: drag vertical letter columns until the target letters line up with the horizontal row, then select Submit. The result shows correct letters, and the running score adds every correct and incorrect position on each submission. A repeated Submit without moving the board does not add score; after you move a column, submit again to score the new attempt. Correct positions lock in place. Select the word type for its definition, Hint for a sentence example, or New Word for another round.\n\n'
+            '• Drag: drag each word from the word list to its matching blank in the tagged sentence. Correct placements are confirmed by color and become fixed. Every accepted correct placement and every incorrect drop onto a word target is counted; a word dropped outside a target is not scored. An incorrect word stays available to try again. Select New Sentence for another round.',
       ),
       (
         title: 'Grammar',
@@ -38,7 +38,7 @@ class HelpTab extends StatelessWidget {
       (
         title: 'Theme And Preferences',
         body:
-            'Use the palette icon in the app bar to choose System, Light, or Dark theme. Theme and the selected Grammar category are saved on this device. Game rounds and progress are not saved between sessions. On web, saved preferences and study data depend on browser storage and may be removed if site data is cleared.',
+            'Use the palette icon in the app bar to choose System, Light, or Dark theme. Theme and the selected Grammar category are saved on this device. Game rounds, progress, and scores remain only in memory and are not saved between sessions. On web, saved preferences and study data depend on browser storage and may be removed if site data is cleared.',
       ),
       (
         title: 'Database And Troubleshooting',

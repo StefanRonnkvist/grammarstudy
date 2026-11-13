@@ -38,6 +38,8 @@ void main() {
       expect(find.text('Hint'), findsOneWidget);
       expect(find.text('Submit'), findsOneWidget);
       expect(find.text('New Word'), findsOneWidget);
+      expect(find.text('Correct: 0'), findsOneWidget);
+      expect(find.text('Incorrect: 0'), findsOneWidget);
     });
 
     testWidgets('reports an empty board without candidates', (tester) async {
@@ -88,6 +90,17 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.textContaining('Correct letters:'), findsOneWidget);
+      final result = tester
+          .widget<Text>(find.textContaining('Correct letters:'))
+          .data!;
+      final match = RegExp(r'Correct letters: (\d+)/(\d+)').firstMatch(result)!;
+      final correctCount = int.parse(match.group(1)!);
+      final totalCount = int.parse(match.group(2)!);
+      expect(find.text('Correct: $correctCount'), findsOneWidget);
+      expect(
+        find.text('Incorrect: ${totalCount - correctCount}'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('New Word regenerates the board', (tester) async {
@@ -126,6 +139,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('New Sentence'), findsOneWidget);
+      expect(find.text('Correct: 0'), findsOneWidget);
+      expect(find.text('Incorrect: 0'), findsOneWidget);
     });
 
     testWidgets('shows an empty state without structure sentences', (
@@ -168,8 +183,9 @@ void main() {
       expect(find.text('New Sentence'), findsOneWidget);
     });
 
-    testWidgets('sentence tokens come from the round that was drawn',
-        (tester) async {
+    testWidgets('sentence tokens come from the round that was drawn', (
+      tester,
+    ) async {
       await tester.pumpWidget(build());
       await tester.pumpAndSettle();
 

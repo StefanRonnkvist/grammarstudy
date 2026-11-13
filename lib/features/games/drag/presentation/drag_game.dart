@@ -6,6 +6,7 @@ import '../../../../core/layout/responsive.dart';
 import '../../../../core/layout/text_measurement.dart';
 import '../domain/drag_logic.dart';
 import '../domain/drag_models.dart';
+import '../../presentation/game_scoreboard.dart';
 
 /// Hosts the Drag game: rebuild a tagged sentence by placing its words.
 ///
@@ -31,6 +32,8 @@ class _DragGameState extends State<DragGame> {
   Map<int, String> _matchedTargetByTokenIndex = <int, String>{};
   Map<String, Color> _targetColors = <String, Color>{};
   bool _showMissFeedback = false;
+  int _correctValues = 0;
+  int _incorrectValues = 0;
 
   @override
   void initState() {
@@ -108,6 +111,7 @@ class _DragGameState extends State<DragGame> {
     setState(() {
       _tokenIsCorrectByIndex[payload.tokenIndex] = isCorrect;
       if (isCorrect) {
+        _correctValues++;
         _matchedTargetByTokenIndex[payload.tokenIndex] = word;
         _matchedByTarget =
             Map<String, List<DragWordPayload>>.from(_matchedByTarget)..update(
@@ -115,6 +119,8 @@ class _DragGameState extends State<DragGame> {
               (existing) => [...existing, payload],
               ifAbsent: () => [payload],
             );
+      } else {
+        _incorrectValues++;
       }
     });
 
@@ -136,6 +142,10 @@ class _DragGameState extends State<DragGame> {
     final round = _round;
     return Column(
       children: [
+        GameScoreboard(
+          correctValues: _correctValues,
+          incorrectValues: _incorrectValues,
+        ),
         Row(
           children: [
             const Expanded(child: SizedBox.shrink()),

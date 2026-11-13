@@ -11,13 +11,13 @@ The Structure tab presents tagged sentence examples; Sentence presents the same 
 PRACTICE WITH THREE GAMES
 
 CROSSWORD
-Solve generated crosswords from grammar vocabulary. Clues show direction, answer length, and word type. Select a numbered cell and enter the active word one letter at a time; at a crossing, choose which clue to answer. Completed words show correct and incorrect letters in color. Open a clue or select its active cell again for a sentence hint and an option to reveal that word. Hint shows masked puzzle answers and word types. Clear Cell clears editable letters in the active word; New Puzzle starts another grid.
+Solve generated crosswords from grammar vocabulary. Clues show direction, answer length, and word type. Select a numbered cell and enter the active word one letter at a time; at a crossing, choose which clue to answer. Completed words show correct and incorrect letters in color. A running Correct/Incorrect score counts each entered letter once when a clue is first completed; revealed clues do not score. Totals continue across new puzzles while the game screen remains active. Open a clue or select its active cell again for a sentence hint and an option to reveal that word. Hint shows masked puzzle answers and word types. Clear Cell clears editable letters in the active word; New Puzzle starts another grid.
 
 SLIDE
-Move the vertical letter columns to line up the hidden answer with the target row, then select Submit. The correct-letter count shows your result, and correct positions lock while the remaining columns stay movable. Select the word type to read its definition, use Hint for a sentence containing the answer, or choose New Word.
+Move the vertical letter columns to line up the hidden answer with the target row, then select Submit. See how many letters are correct; running Correct/Incorrect totals count every position on each submission. Correct positions lock while the remaining columns stay movable. Select the word type to read its definition, use Hint for a sentence containing the answer, or choose New Word.
 
 DRAG
-Rebuild a tagged sentence by dragging each word from the word list into its matching blank. Matching colors confirm correct placements and fix them in place; an incorrect drop flashes red and leaves the word available to try again. Select New Sentence for another round.
+Rebuild a tagged sentence by dragging each word from the word list into its matching blank. A running Correct/Incorrect score counts each correct placement and each incorrect drop on a word target. A drop outside a target does not count. Matching colors confirm correct placements and fix them in place; incorrect drops flash red and leave words available to try again. Select New Sentence for another round.
 
 STUDY YOUR WAY
 
@@ -26,6 +26,7 @@ STUDY YOUR WAY
 - Read available definitions in Grammar and in Slide
 - Choose System, Light, or Dark theme
 - Resume from the grammar category you used last
+- Track running correct and incorrect values; Crossword counts each clue once per puzzle, and scores are not saved between sessions
 - Start another round at any time; game progress is not saved between sessions
 - Work on phones, tablets, and larger screens
 - Check loaded data counts and restore the bundled database
@@ -34,4 +35,4 @@ SUPPORT AND PRIVACY
 
 Use Contact Us in the Information tab to send a question, correction, or suggestion. The form sends your name, return email, message, and app diagnostics, including package, app version and build, platform, layout, orientation, and submission time. Submissions loads a remote CSV and displays entries associated with this app. Sending a message and loading Submissions require an internet connection; reference and game content do not. The app includes no advertising or analytics.
 
-Grammar reference content ships with the app for offline use. Your theme and selected grammar category are saved on your device; game rounds are not saved between sessions. On web, saved preferences depend on browser storage.
+Grammar reference content ships with the app for offline use. Your theme and selected grammar category are saved on your device; game rounds and scores are not saved between sessions. On web, saved preferences depend on browser storage.

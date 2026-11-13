@@ -137,9 +137,7 @@ void main() {
       expect(find.textContaining('letters'), findsWidgets);
     });
 
-    testWidgets('fills the clue squares from the typed word', (
-      tester,
-    ) async {
+    testWidgets('fills the clue squares from the typed word', (tester) async {
       await tester.pumpWidget(buildSubject());
       await tester.pumpAndSettle();
 
@@ -150,7 +148,9 @@ void main() {
       );
       expect(emptyLetter, findsWidgets);
       await tester.tap(
-        find.ancestor(of: emptyLetter.first, matching: find.byType(Container)).first,
+        find
+            .ancestor(of: emptyLetter.first, matching: find.byType(Container))
+            .first,
       );
       await tester.pumpAndSettle();
 
@@ -258,6 +258,13 @@ void main() {
 
       expect(colorOf('C'), Colors.green.shade800);
       expect(colorOf('X'), Colors.red.shade800);
+      final scoreLabels = tester
+          .widgetList<Text>(find.byType(Text))
+          .map((text) => text.data)
+          .where((text) => text?.startsWith('Correct:') ?? false)
+          .toList();
+      expect(scoreLabels, ['Correct: 2']);
+      expect(find.text('Incorrect: 1'), findsOneWidget);
     });
 
     testWidgets('asks which clue to answer when a square shares a number', (
@@ -293,9 +300,7 @@ void main() {
       );
 
       String clue() =>
-          tester
-              .widget<Text>(find.textContaining('Typing into:').first)
-              .data ??
+          tester.widget<Text>(find.textContaining('Typing into:').first).data ??
           '';
 
       var sawPicker = false;
@@ -328,7 +333,8 @@ void main() {
       expect(
         sawPicker,
         isTrue,
-        reason: 'a square shared by an Across and a Down word must offer a choice',
+        reason:
+            'a square shared by an Across and a Down word must offer a choice',
       );
     });
 
@@ -373,9 +379,7 @@ void main() {
       // The revealed word fills its clue; the squares it crosses now carry a
       // letter that the player never typed.
       final revealedClue =
-          tester
-              .widget<Text>(find.textContaining('Typing into:').first)
-              .data ??
+          tester.widget<Text>(find.textContaining('Typing into:').first).data ??
           '';
       expect(fieldText(), isNot(contains('_')));
 
@@ -441,7 +445,12 @@ void main() {
       }
 
       // Every square is filled and the crossing letter is still in place.
-      expect(fieldText(), 'Z' * prefillIndex + revealedLetter + 'Z' * (prefilled.length - prefillIndex - 1));
+      expect(
+        fieldText(),
+        'Z' * prefillIndex +
+            revealedLetter +
+            'Z' * (prefilled.length - prefillIndex - 1),
+      );
     });
 
     testWidgets('revealed letters self fill and cannot be typed over', (
@@ -467,10 +476,7 @@ void main() {
       final cellBox = find
           .ancestor(
             of: find
-                .descendant(
-                  of: find.byType(GridView),
-                  matching: find.text(''),
-                )
+                .descendant(of: find.byType(GridView), matching: find.text(''))
                 .first,
             matching: find.byType(Container),
           )

@@ -7,6 +7,7 @@ import '../../../../core/widgets/dialog_views.dart';
 import '../../crossword/domain/crossword_models.dart';
 import '../domain/slide_models.dart';
 import '../domain/slide_logic.dart';
+import '../../presentation/game_scoreboard.dart';
 
 /// Hosts the Slide game: drag letter columns to spell the target word.
 class SlideGame extends StatefulWidget {
@@ -46,6 +47,8 @@ class _SlideGameState extends State<SlideGame> {
   double _topLaneHeight = 0;
   double _squareSize = 0;
   double _letterHeight = 0;
+  int _correctValues = 0;
+  int _incorrectValues = 0;
 
   @override
   void initState() {
@@ -77,6 +80,9 @@ class _SlideGameState extends State<SlideGame> {
   }
 
   void _submit() {
+    if (_board.hasSubmitted || !_board.hasWord) {
+      return;
+    }
     setState(() {
       _board = evaluateSlideBoard(
         _board,
@@ -84,6 +90,8 @@ class _SlideGameState extends State<SlideGame> {
         squareSize: _squareSize,
         letterHeight: _letterHeight,
       );
+      _correctValues += _board.correctLetters;
+      _incorrectValues += _board.letters.length - _board.correctLetters;
     });
   }
 
@@ -123,6 +131,10 @@ class _SlideGameState extends State<SlideGame> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        GameScoreboard(
+          correctValues: _correctValues,
+          incorrectValues: _incorrectValues,
+        ),
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) {
