@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../features/games/presentation/games_tab.dart';
 import '../../features/grammar/presentation/grammar_tab.dart';

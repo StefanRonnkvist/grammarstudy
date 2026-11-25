@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Compact running score shared by the three game screens.
 class GameScoreboard extends StatelessWidget {

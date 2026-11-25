@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Seed colour used to generate the light and dark Material 3 schemes.
 const Color _seedColor = Colors.blue;

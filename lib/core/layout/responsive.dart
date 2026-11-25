@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Decides whether a tab bar must scroll to fit [labels] within [maxWidth].
 ///

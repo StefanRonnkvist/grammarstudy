@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../core/layout/text_measurement.dart';
 import '../../../core/text/text_utils.dart';

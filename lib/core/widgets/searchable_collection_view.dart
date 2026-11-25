@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../core/search/search_filter.dart';
 import '../../../core/widgets/status_views.dart';

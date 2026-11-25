@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Presents static guidance for every study area and recovery control.
 class HelpTab extends StatelessWidget {

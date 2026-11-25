@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Shows the word type definition, or a fallback when none is available.
 Future<void> showWordTypeDefinitionDialog(

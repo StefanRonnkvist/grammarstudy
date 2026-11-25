@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Renders a centred progress indicator with an optional message.
 class LoadingView extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../core/widgets/searchable_collection_view.dart';
 import '../../../data/study_database_service.dart';

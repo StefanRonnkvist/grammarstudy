@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Shows the branded loading animation while application data is initialized.
 class SplashScreen extends StatefulWidget {
